@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Head from "next/head";
 import AppLayout from "./components/AppLayout";
 import { Form, Input, Checkbox, Button } from "antd";
 
 const Sinup = () => {
-  const userInput = (initValue = null, afterHadler = undefined) => {
+  const userInput = (initValue = null) => {
     const [value, setter] = useState(initValue);
-    const handler = e => {
+    const handler = useCallback(e => {
       setter(e.target.value);
-      if (afterHadler) afterHadler(e);
-    };
+    }, []);
     return [value, handler];
   };
 
@@ -21,28 +20,30 @@ const Sinup = () => {
   const [passwrodError, setPasswordError] = useState(false);
   const [termError, setTermError] = useState(false);
 
-  const onSubmit = e => {
-    e.preventDefault();
-    if (password != passwordCheck) setPasswordError(true);
-    if (!term) setTermError(true);
-    console.log({
-      id,
-      nick,
-      password,
-      passwordCheck,
-      term
-    });
-  };
+  const onSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      if (password != passwordCheck) setPasswordError(true);
+      if (!term) setTermError(true);
+    },
+    [password, passwordCheck, term]
+  );
 
-  const onChangePasswordCheck = e => {
-    passwordErrorHandler(password == e.target.value);
-    setPasswordCheck(e.target.value);
-  };
+  const onChangePasswordCheck = useCallback(
+    e => {
+      passwordErrorHandler(password == e.target.value);
+      setPasswordCheck(e.target.value);
+    },
+    [password]
+  );
 
-  const onChangeTerm = e => {
-    setTermError(false);
-    setTerm(!term);
-  };
+  const onChangeTerm = useCallback(
+    e => {
+      setTermError(false);
+      setTerm(!term);
+    },
+    [term]
+  );
 
   return (
     <>
