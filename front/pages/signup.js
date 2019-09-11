@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Checkbox, Button } from "antd";
 
-const Sinup = () => {
-  const userInput = (initValue = null) => {
-    const [value, setter] = useState(initValue);
-    const handler = useCallback(e => {
-      setter(e.target.value);
-    }, []);
-    return [value, handler];
-  };
+export const userInput = (initValue = null) => {
+  const [value, setter] = useState(initValue);
+  const handler = useCallback(e => {
+    setter(e.target.value);
+  }, []);
+  return [value, handler];
+};
 
+const Sinup = () => {
   const [id, onChangeId] = userInput("");
   const [nick, onChangeNick] = userInput("");
   const [password, onChangePassword] = userInput("");
