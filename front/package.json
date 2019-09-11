@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "author": "munsu-Lim",
   "license": "MIT",
   "dependencies": {
+    "antd": "^3.23.2",
     "next": "^9.0.5",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
