@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Checkbox, Button } from "antd";
+import { useDispatch } from "react-redux";
+import { singUpAction } from "../reducers/user";
 
 export const userInput = (initValue = null) => {
   const [value, setter] = useState(initValue);
@@ -18,18 +20,29 @@ const Sinup = () => {
   const [passwrodError, setPasswordError] = useState(false);
   const [termError, setTermError] = useState(false);
 
+  const dispatch = useDispatch();
+
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
       if (password != passwordCheck) setPasswordError(true);
       if (!term) setTermError(true);
+      dispatch(
+        singUpAction({
+          id,
+          password,
+          nick
+        })
+      );
     },
     [password, passwordCheck, term]
   );
 
   const onChangePasswordCheck = useCallback(
     e => {
-      passwordErrorHandler(password == e.target.value);
+      password == e.target.value
+        ? setPasswordError(false)
+        : setPasswordError(true);
       setPasswordCheck(e.target.value);
     },
     [password]

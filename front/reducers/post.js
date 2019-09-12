@@ -1,5 +1,15 @@
 export const initialState = {
-  mainPosts: []
+  mainPosts: [
+    {
+      User: {
+        id: 1,
+        nickName: "보르바"
+      },
+      content: "첫번째 게시글",
+      img: "https://newsimg.sedaily.com/2017/09/15/1OL1CMWR9X_1.jpg"
+    }
+  ],
+  imagePaths: []
 };
 
 const ADD_POST = "ADD_POST";

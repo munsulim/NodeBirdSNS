@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Avatar } from "antd";
+import { useSelector } from "react-redux";
 
 const dummy = {
   nickname: "Lewisia",
@@ -10,29 +11,30 @@ const dummy = {
 };
 
 const UserProfile = () => {
+  const { user } = useSelector(state => state.user);
   return (
     <Card
       actions={[
         <div key="twit">
           짹쨱
           <br />
-          {dummy.Post.length}
+          {user.Post.length}
         </div>,
         <div key="following">
           팔로잉
           <br />
-          {dummy.Followings.length}
+          {user.Followings.length}
         </div>,
         <div key="follower">
           팔로워
           <br />
-          {dummy.Followers.length}
+          {user.Followers.length}
         </div>
       ]}
     >
       <Card.Meta
-        avatar={<Avatar>{dummy.nickname[0]}</Avatar>}
-        title={dummy.nickname}
+        avatar={<Avatar>{user.nickname[0]}</Avatar>}
+        title={user.nickname}
       />
     </Card>
   );
