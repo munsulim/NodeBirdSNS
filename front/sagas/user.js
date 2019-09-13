@@ -1,6 +1,7 @@
 import {
   all, fork, takeLatest, call, put,
 } from 'redux-saga/effects';
+import axios from 'axios';
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -13,7 +14,7 @@ import {
 function signupAPI() {}
 function loginAPI() {}
 
-function* signup() {
+function* signUp() {
   try {
     yield call(signupAPI);
     yield put({
@@ -27,7 +28,7 @@ function* signup() {
   }
 }
 
-function* login() {
+function* logIn() {
   try {
     yield call(loginAPI);
     yield put({
@@ -42,11 +43,11 @@ function* login() {
 }
 
 function* watchSignup() {
-  yield takeLatest(SIGN_UP_REQUEST, signup);
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
 function* watchLogin() {
-  yield takeLatest(LOG_IN_REQUEST, login);
+  yield takeLatest(LOG_IN_REQUEST, logIn);
 }
 
 export default function* userSaga() {
