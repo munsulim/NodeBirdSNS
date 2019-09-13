@@ -4,13 +4,13 @@ import PostForm from '../components/PostForm';
 import PostCard from '../components/PostCard';
 
 const Home = () => {
-  const { isLoggedIn, user } = useSelector((state) => state.user);
+  const { isLoggedIn, me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
   return (
     <div>
-      {user ? (
-        <div>로그인 했습니다: {user.nickname} </div>
+      {me ? (
+        <div>로그인 했습니다: {me.nickname} </div>
       ) : (
         <div> 로그아웃 했습니다.</div>
       )}
