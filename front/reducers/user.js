@@ -4,6 +4,7 @@ const dummyUser = {
   Followers: [],
   Followings: [],
   signUpData: {},
+  id: 1,
 };
 
 export const initialState = {
