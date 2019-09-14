@@ -1,40 +1,40 @@
-import React from "react";
-import { Card, Avatar } from "antd";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Card, Avatar } from 'antd';
+import { useSelector } from 'react-redux';
 
 const dummy = {
-  nickname: "Lewisia",
+  nickname: 'Lewisia',
   Post: [],
   Followers: [],
   Followings: [],
-  isLoggendin: false
+  isLoggendin: false,
 };
 
 const UserProfile = () => {
-  const { user } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   return (
     <Card
       actions={[
         <div key="twit">
           짹쨱
           <br />
-          {user.Post.length}
+          {me.Post.length}
         </div>,
         <div key="following">
           팔로잉
           <br />
-          {user.Followings.length}
+          {me.Followings.length}
         </div>,
         <div key="follower">
           팔로워
           <br />
-          {user.Followers.length}
-        </div>
+          {me.Followers.length}
+        </div>,
       ]}
     >
       <Card.Meta
-        avatar={<Avatar>{user.nickname[0]}</Avatar>}
-        title={user.nickname}
+        avatar={<Avatar>{me.nickname[0]}</Avatar>}
+        title={me.nickname}
       />
     </Card>
   );

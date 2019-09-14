@@ -1,19 +1,20 @@
-import React, { useCallback } from "react";
-import { Input, Button, Form } from "antd";
-import Link from "next/link";
-import { userInput } from "../pages/signup";
-import { useDispatch } from "react-redux";
-import { loginAction } from "../reducers/user";
+import React, { useCallback } from 'react';
+import { Input, Button, Form } from 'antd';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { userInput } from '../pages/signup';
+import { loginRequestAction } from '../reducers/user';
 
 const LoginForm = () => {
-  const [id, onChangeId] = userInput("");
-  const [password, onChangePassword] = userInput("");
+  const [id, onChangeId] = userInput('');
+  const [password, onChangePassword] = userInput('');
+  const { isLogginin } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const onSubmit = useCallback(e => {
+  const onSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(loginAction);
-  }, []);
+    dispatch(loginRequestAction({ id, password }));
+  }, [id, password]);
 
   return (
     <Form onSubmit={onSubmit} style={{ padding: 10 }}>
@@ -33,8 +34,8 @@ const LoginForm = () => {
           onChange={onChangePassword}
         />
       </div>
-      <div style={{ marginTop: "10px" }}>
-        <Button type="primary" htmlType="submit">
+      <div style={{ marginTop: '10px' }}>
+        <Button type="primary" htmlType="submit" loading={isLogginin}>
           로그인
         </Button>
         <Link href="signup">

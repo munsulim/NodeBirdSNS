@@ -1,13 +1,15 @@
-import React from "react";
-import { Menu, Input, Button, Row, Col, Card, Avatar, Form } from "antd";
-import PropTypes from "prop-types";
-import Link from "next/link";
-import LoginForm from "./LoginForm";
-import UserProfile from "./UserProfile";
-import { useSelector } from "react-redux";
+import React from 'react';
+import {
+  Menu, Input, Button, Row, Col, Card, Avatar, Form,
+} from 'antd';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const AppLayout = ({ children }) => {
-  const { isLoggedIn } = useSelector(state => state.user);
+  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <div>
       <Menu mode="horizontal">
@@ -22,7 +24,7 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item key="mail">
-          <Input.Search enterButton style={{ verticalAlign: "middle" }} />
+          <Input.Search enterButton style={{ verticalAlign: 'middle' }} />
         </Menu.Item>
       </Menu>
       <Row gutter={10}>
@@ -32,14 +34,14 @@ const AppLayout = ({ children }) => {
         <Col xs={24} md={12}>
           {children}
         </Col>
-        <Col xs={24} md={6}></Col>
+        <Col xs={24} md={6} />
       </Row>
     </div>
   );
 };
 
 AppLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default AppLayout;

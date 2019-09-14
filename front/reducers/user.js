@@ -8,10 +8,10 @@ const dummyUser = {
 
 export const initialState = {
   isLoggedIn: false, // 로그인 여부
-  isLogginIn: false, // 로그인 시도중
-  isLogginOut: false, // 로그아웃 시도중
+  isLoggingIn: false, // 로그인 시도중
+  isLoggingOut: false, // 로그아웃 시도중
   logInErrorReason: '', // 로그인 실패사유
-  signedUp: false, // 회원가입 성공
+  isSignedUp: false, // 회원가입 성공
   isSigningUp: false, // 회원가입 시도중
   signUpErroReason: '', // 회원가입 실패 사유
   me: null, // 내정보
@@ -54,17 +54,18 @@ export const REMOVE_FOLLOWER_FAILURE = 'REMOVE_FOLLOWER_FAILURE';
 
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 
-export const loginAction = {
+export const loginRequestAction = (data) => ({
   type: LOG_IN_REQUEST,
-};
+  data,
+});
 
-export const logoutAction = {
+export const logoutRequestAction = {
   type: LOG_OUT_REQUEST,
 };
 
 export const loginSeccessAction = {};
 
-export const singUpAction = (data) => ({
+export const singUpRequestAction = (data) => ({
   type: SIGN_UP_REQUEST,
   data,
 });
@@ -74,16 +75,26 @@ const reducer = (state = initialState, action) => {
     case LOG_IN_REQUEST: {
       return {
         ...state,
-        loginData: action.data,
-        isLoading: true,
+        isLoggingIn: true,
+        logInErrorReason: '',
       };
     }
     case LOG_IN_SUCCESS: {
       return {
         ...state,
+        isLoggingIn: false,
         isLoggedIn: true,
         me: dummyUser,
         isLoading: false,
+      };
+    }
+    case LOG_IN_FAILURE: {
+      return {
+        ...state,
+        isLoggingIn: false,
+        isLoggedIn: false,
+        logInErrorReason: action.error,
+        me: null,
       };
     }
     case LOG_OUT_REQUEST: {
@@ -97,6 +108,25 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         signUpData: action.data,
+        isSigningUp: true,
+        isSignedUp: false,
+        signUpErroReason: '',
+      };
+    }
+    case SIGN_UP_SUCCESS: {
+      return {
+        ...state,
+        signUpData: action.data,
+        isSigningUp: false,
+        isSignedUp: true,
+      };
+    }
+    case SIGN_UP_FAILURE: {
+      return {
+        ...state,
+        signUpData: action.data,
+        isSigningUp: false,
+        signUpErroReason: action.error,
       };
     }
     default: {

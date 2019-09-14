@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import {
   Form, Input, Checkbox, Button,
 } from 'antd';
-import { useDispatch } from 'react-redux';
-import { singUpAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { singUpRequestAction } from '../reducers/user';
 
 export const userInput = (initValue = null) => {
   const [value, setter] = useState(initValue);
@@ -21,6 +21,7 @@ const Sinup = () => {
   const [term, setTerm] = useState(false);
   const [passwrodError, setPasswordError] = useState(false);
   const [termError, setTermError] = useState(false);
+  const { isSigningUp } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -30,7 +31,7 @@ const Sinup = () => {
       if (password !== passwordCheck) setPasswordError(true);
       if (!term) setTermError(true);
       dispatch(
-        singUpAction({
+        singUpRequestAction({
           id,
           password,
           nick,
@@ -109,7 +110,7 @@ const Sinup = () => {
           )}
         </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isSigningUp}>
             가입하기
           </Button>
         </div>
