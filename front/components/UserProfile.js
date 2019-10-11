@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Avatar } from 'antd';
+import { Card, Avatar,Button } from 'antd';
 import { useSelector } from 'react-redux';
 
 const dummy = {
@@ -18,7 +18,7 @@ const UserProfile = () => {
         <div key="twit">
           짹쨱
           <br />
-          {me.Post.length}
+          {me.Posts.length}
         </div>,
         <div key="following">
           팔로잉
@@ -36,6 +36,7 @@ const UserProfile = () => {
         avatar={<Avatar>{me.nickname[0]}</Avatar>}
         title={me.nickname}
       />
+      <Button>로그아웃</Button>
     </Card>
   );
 };

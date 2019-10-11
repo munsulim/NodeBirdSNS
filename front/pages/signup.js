@@ -39,13 +39,13 @@ const Sinup = () => {
       if (!term) setTermError(true);
       dispatch(
         singUpRequestAction({
-          id,
+          userId: id,
           password,
-          nick,
+          nickname: nick,
         }),
       );
     },
-    [password, passwordCheck, term],
+    [id,password, passwordCheck, term],
   );
 
   const onChangePasswordCheck = useCallback(

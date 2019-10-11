@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(loginRequestAction({ id, password }));
+    dispatch(loginRequestAction({ userId: id, password }));
   }, [id, password]);
 
   return (

@@ -11,12 +11,22 @@ import {
   SIGN_UP_FAILURE,
 } from '../reducers/user';
 
-function signupAPI() {}
+axios.defaults.baseURL= 'http://localhost:3065/api';
+
+function loginAPI(logIndata) {
+  return axios.post('/user/login', logIndata, {
+    withCredentials: true,
+  });
+}
+
+function signupAPI(signUpData) {
+  return axios.post('/user/', signUpData);
+}
 // function loginAPI() {}
 
-function* signUp() {
+function* signUp(action) {
   try {
-    yield call(signupAPI);
+    yield call(signupAPI, action.data);
     yield put({
       type: SIGN_UP_SUCCESS,
     });
@@ -29,12 +39,12 @@ function* signUp() {
   }
 }
 
-function* logIn() {
+function* logIn(action) {
   try {
-    // yield call(loginAPI);
-    yield delay(200);
+    const result = yield call(loginAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
+      data: result.data,
     });
   } catch (e) {
     console.error(e);
