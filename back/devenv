@@ -1,0 +1,5 @@
+COOKIE_SECRET=cookie
+DB_USERNAME=name
+DB_PASSWORD=pass
+DB_NAME=db
+NODE_ENV=development
