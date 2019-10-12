@@ -1,18 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define(
-    'Post',
+    'Posts',
     {
       content: {
         type: DataTypes.TEXT,
-        allowNull: false
-      },
-      postId: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-        unique: true
-      },
-      userId: {
-        type: DataTypes.STRING(100),
         allowNull: false
       }
     },

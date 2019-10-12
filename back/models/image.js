@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: false,
         unique: true
-      },
-      postId: {
-        type: DataTypes.STRING(100),
-        allowNull: false
       }
     },
     {

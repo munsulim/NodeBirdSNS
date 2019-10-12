@@ -20,15 +20,6 @@ export const initialState = {
   commentAdded: false, // 커멘트 업로드 성공
 };
 
-const dummyPost = {
-  id: 2,
-  User: {
-    id: 1,
-    nickname: '보르바',
-  },
-  content: '더미입니다',
-  Comments: [],
-};
 
 const dummyComment = {
   id: 1,
@@ -62,6 +53,10 @@ export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
+export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
+export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
+
 export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
 export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
 export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
@@ -92,16 +87,6 @@ export const addPost = {
   type: ADD_POST_REQUEST,
 };
 
-export const addDummy = {
-  type: ADD_DUMMY,
-  data: {
-    content: 'Hello',
-    UserId: 1,
-    User: {
-      nickname: '보르바',
-    },
-  },
-};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -117,15 +102,39 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isAddingPost: false,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [action.data, ...state.mainPosts],
         postAdded: true,
       };
     }
     case ADD_POST_FAILURE: {
       return {
         ...state,
-        isAddingPost: false,
+        isAddingPosts: false,
         addPostErrorReason: action.error,
+      };
+    }
+
+    case LOAD_MAIN_POSTS_REQUEST: {
+      return {
+        ...state,
+        isLoadingPosts: true,
+        loadPostsErrorReason: '',
+        postsloded: false,
+      };
+    }
+    case LOAD_MAIN_POSTS_SUCCESS: {
+      return {
+        ...state,
+        isLoadingPosts: false,
+        mainPosts: [...action.data, ...state.mainPosts],
+        postsloaded: true,
+      };
+    }
+    case LOAD_MAIN_POSTS_FAILURE: {
+      return {
+        ...state,
+        isLoadingPost: false,
+        loadPostErrorReason: action.error,
       };
     }
 
@@ -133,12 +142,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isAddingComment: true,
-        addCommentErrorReason: '',
-        commentAdded: false,
+        addCommentErrorReason: "",
+        commentAdded: false
       };
     }
     case ADD_COMMENT_SUCCESS: {
-      const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
+      const postIndex = state.mainPosts.findIndex(
+        v => v.id === action.data.postId
+      );
       const post = state.mainPosts[postIndex];
       const Comments = [...post.Comments, dummyComment];
       const mainPosts = [...state.mainPosts];
