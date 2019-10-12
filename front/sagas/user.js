@@ -11,8 +11,6 @@ import {
   SIGN_UP_FAILURE,
 } from '../reducers/user';
 
-axios.defaults.baseURL= 'http://localhost:3065/api';
-
 function loginAPI(logIndata) {
   return axios.post('/user/login', logIndata, {
     withCredentials: true,
